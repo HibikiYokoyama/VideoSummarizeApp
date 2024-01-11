@@ -56,18 +56,18 @@ uploaded_file = st.file_uploader("動画ファイルをアップロードして�
 if uploaded_file is not None:
     st.video(uploaded_file)
     
-    # 進捗バーとステータスメッセージの設定
+    # 進捗とステータスメッセージ
     progress_bar = st.progress(0)
     status_message = st.empty()
     status_message.text("音声の文字起こしを行っています...")
 
     try:
-        # 文字起こし処理
+        # 文字起こし
         transcribed_text = extract_and_transcribe(uploaded_file)
         progress_bar.progress(50)
         status_message.text("要約を行っています...")
 
-        # 要約処理
+        # 要約
         summary_text = summarize_text(transcribed_text)
         progress_bar.progress(100)
         time.sleep(0.5)
@@ -78,6 +78,5 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"エラーが発生しました: {e}")
 
-    # 進捗バーとステータスメッセージのクリア
     progress_bar.empty()
     status_message.empty()
